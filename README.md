@@ -36,23 +36,23 @@
 ## Uso
 
 1. Importa el componente Front2Client y el getter en tu archivo .astro
-    ```bash
+    ```javascript
     import F2C from '../../front2client/Front2Client.astro';
     ```
 2. Añadir los tipos globales a la carpetas types de tu proyecto;
-    ```bash
+    ```javascript
     src/types/global.d.ts
     ```
 3. Importar el getter al codigo del cliente:
-    ```bash
+    ```javascript
     import { getFrontData } from "../../front2client/getFrontData";
     ```
 4. Definir las variables que quieras pasar al cliente:
-    ```bash
+    ```html
     <F2C frontmatterData={{ variable1, variable2 }}></F2C>
     ```
 5. Obtener las variables desde el cliente:
-    ```bash
+    ```javascript
     const data = getFrontData();
     console.log(data); // Muestra las variables en el cliente
     ```
