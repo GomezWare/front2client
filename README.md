@@ -1,47 +1,58 @@
-# Astro Starter Kit: Minimal
+# Front2Client
 
-```sh
-npm create astro@latest -- --template minimal
-```
+## Descripción
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
+**Front2Client** es un componente diseñado para facilitar la transferencia de datos del frontmatter del lado del servidor al lado del cliente en aplicaciones construidas con Astro. Este enfoque permite acceder a variables desde el frontmatter en el navegador de manera segura y eficiente.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Características
 
-## 🚀 Project Structure
+- Inyección segura de variables del frontmatter en el objeto global `window`.
+- Acceso sencillo a los datos en el cliente utilizando JavaScript.
+- Soporte para múltiples variables y tipos de datos.
 
-Inside of your Astro project, you'll see the following folders and files:
+## Requisitos
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+- Node.js (v14 o superior)
+- NPM (v6 o superior)
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Instalación
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+1. Clona el repositorio:
 
-Any static assets, like images, can be placed in the `public/` directory.
+   ```bash
+   git clone https://github.com/tu-usuario/front2client.git
+   ```
 
-## 🧞 Commands
+2. Clona el repositorio:
+    ```bash
+    cd front2client
+    ```
+    
+3. Instalar las dependencias:
+    ```bash
+    npm install
+    ``` 
 
-All commands are run from the root of the project, from a terminal:
+## Uso
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+1. Importa el componente Front2Client y el getter en tu archivo .astro
+    ```bash
+    import F2C from '../../front2client/Front2Client.astro';
+    ```
+2. Añadir los tipos globales a la carpetas types de tu proyecto;
+    ```bash
+    src/types/global.d.ts
+    ```
+3. Importar el getter al codigo del cliente:
+    ```bash
+    	import { getFrontData } from "../../front2client/getFrontData";
+    ```
+4. Definir las variables que quieras pasar al cliente:
+    ```bash
+    <F2C frontmatterData={{ variable1, variable2 }}></F2C>
+    ```
+5. Obtener las variables desde el cliente:
+    ```bash
+    onst data = getFrontData();
+    console.log(data); // Muestra las variables en el cliente
+    ```
