@@ -5,17 +5,17 @@
  * al cliente desde el frontmatter del archivo .astro.
  */
  interface Props {
-  data: Record<string, any>; // `Record<string, any>` define un objeto con claves de tipo string y valores de cualquier tipo.
+    frontmatterData: Record<string, any>; // `Record<string, any>` define un objeto con claves de tipo string y valores de cualquier tipo.
 }
 
 // Desestructuramos las props que vienen desde el frontmatter o del componente padre.
-const { data }: Props = Astro.props;
+const { frontmatterData }: Props = Astro.props;
 
 /**
  * Serializamos el objeto `data` usando `JSON.stringify` para convertirlo en una cadena
  * JSON segura que se pueda inyectar en el cliente sin riesgo de inyección de código malicioso.
  */
-const jsonData = JSON.stringify(data);
+const jsonData = JSON.stringify(frontmatterData);
 ---
 
 <!-- 

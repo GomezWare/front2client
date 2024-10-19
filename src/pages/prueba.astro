@@ -1,19 +1,14 @@
 ---
 /**
- * Ejemplo de uso del componente Front2Client (F2C).
- * Este componente se utiliza para pasar variables del frontmatter del lado del servidor
- * al lado del cliente de manera segura.
+ * Comprobacion de que no se duplique el objeto FrontData en window
  */
  import F2C from '../../front2client/Front2Client.astro';
 
- /* Se debe tener activado verbatimModuleSyntax y tener declarado el tipo de extension para Window en global.d.ts*/
-
 // Definimos la variable que viene desde el frontmatter
-const variableFrontmatter = 'Esto viene desde el frontmatter';
-const variableFrontmatter2 = 'Esto tambien viene desde el frontmatter';
+const variableFrontmatter = 'Esto es nuevo';
 ---
 {/* Pasamos la variable del frontmatter como prop al componente F2C */}
-<F2C frontmatterData={{ variableFrontmatter, variableFrontmatter2 }}></F2C>
+<F2C frontmatterData={{ variableFrontmatter }}></F2C>
 
 
 <html lang="en">
@@ -24,14 +19,14 @@ const variableFrontmatter2 = 'Esto tambien viene desde el frontmatter';
 		<meta name="generator" content={Astro.generator} />
 		<title>Front 2 Client example</title>
 	</head>
-	<body>∫
+	<body>
 		<h1 id="target">Astro</h1>
 	</body>
 </html>
 
 <script>
 	// Código del lado cliente en JavaScript
-
+	
 	// importamos el getter para obtener las variables desde el FrontMatter
 	import { getFrontData } from "../../front2client/getFrontData";
 
@@ -41,6 +36,7 @@ const variableFrontmatter2 = 'Esto tambien viene desde el frontmatter';
 
 	// Uso de las variables Frontmatter desde el cliente
 	console.log(variablesFrontmatter.variableFrontmatter);
-	console.log(variablesFrontmatter.variableFrontmatter2);
+	
+	console.log(variablesFrontmatter.variableFrontmatter2); // Esto debe de dar undefined debido a que se mantiene el ambito de la variable
 	
 </script>
