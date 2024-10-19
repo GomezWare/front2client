@@ -45,7 +45,7 @@
     ```
 3. Importar el getter al codigo del cliente:
     ```bash
-    	import { getFrontData } from "../../front2client/getFrontData";
+    import { getFrontData } from "../../front2client/getFrontData";
     ```
 4. Definir las variables que quieras pasar al cliente:
     ```bash
@@ -53,6 +53,6 @@
     ```
 5. Obtener las variables desde el cliente:
     ```bash
-    onst data = getFrontData();
+    const data = getFrontData();
     console.log(data); // Muestra las variables en el cliente
     ```
