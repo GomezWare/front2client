@@ -1,27 +1,31 @@
 ---
-/**
- * Definimos la interfaz `Props` para tipar las propiedades (props) que va a recibir el componente.
- * En este caso, la prop `data` es un objeto que contiene las variables que queremos pasar
- * al cliente desde el frontmatter del archivo .astro.
- */
- interface Props {
-    frontmatterData: Record<string, any>; // `Record<string, any>` define un objeto con claves de tipo string y valores de cualquier tipo.
+// Definimos la interfaz `Props` para tipar las propiedades (props) que va a recibir el componente.
+// En este caso, `frontmatterData` es un objeto genérico que contiene las variables pasadas desde el frontmatter del archivo Astro.
+interface Props {
+  frontmatterData: Record<string, any>; // Define un objeto con claves string y valores de cualquier tipo.
 }
 
-// Desestructuramos las props que vienen desde el frontmatter o del componente padre.
+// Obtenemos las props que vienen del frontmatter o del componente padre.
 const { frontmatterData }: Props = Astro.props;
 
-/**
- * Serializamos el objeto `data` usando `JSON.stringify` para convertirlo en una cadena
- * JSON segura que se pueda inyectar en el cliente sin riesgo de inyección de código malicioso.
- */
+// Serializamos el objeto `frontmatterData` usando `JSON.stringify` para convertirlo en una cadena JSON segura.
+// Esto evita riesgos de inyección de código malicioso (XSS).
 const jsonData = JSON.stringify(frontmatterData);
+
+/*
+ * Evitamos exponer datos directamente en el objeto `window`. En su lugar, los pasamos a través de un contexto seguro
+ * o los inyectamos como atributos o variables específicas dentro del cliente.
+ */
+const scriptContent = `
+  // Encapsulamos los datos dentro de un espacio de nombres específico para evitar conflictos globales.
+  (function() {
+    if (!window.__FRONTMATTER__) {
+      window.__FRONTMATTER__ = {};
+    }
+    window.__FRONTMATTER__.data = ${jsonData};
+  })();
+`;
 ---
 
-<!-- 
-  Usamos un script con el atributo `set:html` para inyectar dinámicamente el contenido de 
-  las variables del frontmatter en el cliente. Esto hace que las variables se asignen
-  al objeto global `window` (en este caso, `window.frontmatterData`), 
-  donde estarán disponibles para usar en el lado del cliente.
--->
-<script type="text/javascript" set:html={`window.frontmatterData = ${jsonData};`}></script>
+<!-- Inyectamos el script en el cliente utilizando Astro directamente. -->
+<script type="text/javascript" set:html={scriptContent}></script>

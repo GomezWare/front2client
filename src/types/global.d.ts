@@ -1,8 +1,8 @@
-// src/types/global.d.ts
-
 declare global {
   interface Window {
-    frontmatterData: Record<string, any>; // Extiende el objeto window para incluir la propiedad frontmatterData
+    __FRONTMATTER__?: {
+      data: Record<string, any>; // Extiende el objeto window para incluir el espacio de nombres __FRONTMATTER__ con los datos
+    };
   }
 }
 
