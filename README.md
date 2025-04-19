@@ -6,7 +6,7 @@
 
 ## Características
 
-- Inyección segura de variables del frontmatter en el objeto global `window`.
+- Inyección segura de variables del frontmatter`.
 - Acceso sencillo a los datos en el cliente utilizando JavaScript.
 - Soporte para múltiples variables y tipos de datos.
 
